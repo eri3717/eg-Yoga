@@ -5,140 +5,128 @@
     $user = new User;
     $row = $user->userInfomation($loginid);
     $leftTicket = $user->leftTicket($loginid);
+    $booked = $user->bookedLeeson($loginid);
+    $bookedlist = $user->bookedList($loginid);
+    $historylist = $user->historyList($loginid);
+    $resultlesson  = $user->resultLesson($loginid);
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>EG-YOGA</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- Custom styles for this template -->
-    <link href="../css/agency.css" rel="stylesheet">
-</head>
-
-<body id="page-top">
-
-<!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="../index.php#page-top">EG-YOGA</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="../index.php#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="../index.php#classes">Classes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="../index.php#portfolio">instructors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="../index.php#team">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="../index.php#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="profile.php">MyPage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="logout.php">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-  <!-- Header -->
-    <header class="profile-top">
-        <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">How are you
-                    <span class="text-uppercase"><?php echo $row["firstname"]." ".$row["lastname"] ?></span>
-                </div>
-            </div>
-        </div>
-    </header>
+<?php require_once 'userTop.php' ?>
 
 <!-- user infomation -->
-    <div class="container">
+    <div class="container pt-5">
         <div class="row my-5">
             <div class="col-md-5">
                 <img src="../img/about/aboutimg.jpg" alt="userimage" class="w-100 profile">
             </div>
             <div class="col-md-7 profile-right">
                 <h2 class="d-inline text-uppercase"><?php echo $row["firstname"]." ".$row["lastname"] ?></h2>
-                <button class="btn btn-primary ml-5 mr-4">Edit</button><br>
-                <b class="col-lg-8 pl-0">Your birthday : <span><?php echo $row["birthday"] ?></span></b>
-                <span class="col-lg-4"><?php echo $row["gender"] ?></span>
-                <div>
-                    <span>Ticket left : <?php echo $leftTicket ?></span><br>
-                    <a href="../index.php#ticket" class="btn btn-success">Buy New Ticket</a>
-                    <a href="../index.php#schedule" class="btn btn-success">Book New Lesson</a>
+                <a href="editUserInfo.php" class="btn btn-primary mt-2 ml-5 mr-4">Edit</a><br>
+                <div class="row">
+                    <h6 class="col-md-9 mt-2">Your birthday : <span><?php echo $row["birthday"] ?></span></h6>
+                    <!-- <span class="col-md-3"><?php echo $row["gender"] ?></span> -->
+                </div>
+                <div class="card-group text-center mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Ticket left</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">Now you have</h6>
+                            <h5 class="card-text my-3 text-danger"><?php echo $leftTicket ?> Ticket</h5>
+                            <a href="../index.php#ticket" class="btn btn-success">Buy New Ticket</a>
+
+                        </div>         
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Booked Lesson</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">You are booking</h6>
+                            <h5 class="card-text my-3 text-danger"><?php echo $booked ?> Lesson</h5>
+                            <a href="../index.php#schedule" class="btn btn-success">Book New Lesson</a>
+                        </div>         
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-<!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Your Website 2019</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline quicklinks">
-                        <li class="list-inline-item">
-                        <a href="#">Privacy Policy</a>
-                        </li>
-                        <li class="list-inline-item">
-                        <a href="#">Terms of Use</a>
-                        </li>
-                    </ul>
-                </div>
+<!-- lesson list -->
+    <div class="container mx-auto us_lesson_list">
+        <div class="mb-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="booked-tab" data-toggle="tab" href="#booked" role="tab" aria-controls="booked" aria-selected="true"><h5>Booked Lesson List</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="result-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="false"><h5>History Lesson List</h5></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="container tab-pane fade show active" id="booked" role="tabpanel" aria-labelledby="booked-tab">
+                <table class="table">
+                    <thead class="thead-dark th_font">
+                        <tr>
+                            <th class="text-center">Lesson Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>instructor</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($bookedlist as $row): 
+                            $scheduleID = $row["schedule_id"];
+                            $row["end_time"];
+                        ?>
+                        <tr>
+                            <th class="text-center py-4"><?php echo $scheduleID ?></th>
+                            <td class="py-4"><?php echo $row["lesson_date"] ?></td>
+                            <td class="py-4"><?php echo $row["start_time"]." - ".$row["end_time"] ?></td>
+                            <td class="py-4"><a href=""><?php echo $row["class_type"] ?></a></td>
+                            <td class="py-4"><a href=""><?php echo $row["instructor_Fname"]." ".$row["instructor_Fname"] ?></a></td>
+                            <td class="py-4"><?php echo "<a href='../userAction.php?actionType=cancel&scheduleID=$scheduleID&loginid=$loginid' class='btn btn-outline-warning'>cancel</a>" ?></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab">
+            <table class="table">
+                <h5>Total number of attended lessons : <span class="mx-3 text-purple"><?php echo $resultlesson ?></span></h5>
+                
+                    <thead class="thead-dark th_font">
+                        <tr>
+                            <th class="text-center">Lesson Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>instructor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($historylist as $row): 
+                            $scheduleID = $row["schedule_id"];
+                            $row["end_time"];
+                        ?>
+                        <tr>
+                            <th class="text-center py-4"><?php echo $scheduleID ?></th>
+                            <td class="py-4"><?php echo $row["lesson_date"] ?></td>
+                            <td class="py-4"><?php echo $row["start_time"]." - ".$row["end_time"] ?></td>
+                            <td class="py-4"><a href=""><?php echo $row["class_type"] ?></a></td>
+                            <td class="py-4"><a href=""><?php echo $row["instructor_Fname"]." ".$row["instructor_Fname"] ?></a></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </footer>
+    </div>
+    <?php require_once 'contactUs.php' ?>
+
+
+<!-- Footer -->
+    <?php require_once 'footer.php' ?>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
